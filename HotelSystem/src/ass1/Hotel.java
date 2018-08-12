@@ -3,22 +3,23 @@ package ass1;
 import java.util.ArrayList;
 
 public class Hotel {
-	private int capacity;
+	private int numRooms;
 	RoomSystem roomSys;
 	//BookingSystem bookSys;
 	private ArrayList<String> users;
 	
-	public Hotel(int capacity) {
-		this.capacity = capacity;
+	public Hotel(ArrayList<Room> rooms) {
+		this.numRooms = numRooms;
+		this.roomSys = new RoomSystem();
 		this.users = new ArrayList<String>();
 	}
 
 	public int getCapacity() {
-		return capacity;
+		return numRooms;
 	}
 
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
+	public void setCapacity(int num) {
+		this.numRooms = num;
 	}
 
 	public ArrayList<String> getUsers() {
