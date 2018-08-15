@@ -27,4 +27,9 @@ public class Booking {
 		this.rooms = rooms;
 	}
 	
+	@Override
+	public String toString() {
+		return "Booking [name=" + name + ", rooms=" + rooms + ", start=" + start + ", end=" + end + "]";
+	}
+	
 }

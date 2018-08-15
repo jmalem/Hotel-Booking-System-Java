@@ -2,6 +2,8 @@ package ass1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -62,21 +64,103 @@ public class HotelBookingSystem {
 		        		  
 		        		  System.out.println("Hotel "+z.getHotelName()+" now has "+z.numRooms()+" rooms");// testing purpose
 		        	  } 
-		        	  
+		        	  /*
+			          //display the rooms in every hotel
+			          // testing purpose
+			          for(Hotel e : hotels) {
+			        	  ArrayList<Room> all = e.getRoom();
+			        	  for(Room l : all) {
+			        		  System.out.println(l.toString());
+			        	  }
+			          }*/
 		          }
 		          
-		          //display the rooms in every hotel
-		          for(Hotel e : hotels) {
-		        	  ArrayList<Room> all = e.getRoom();
-		        	  for(Room l : all) {
-		        		  System.out.println(l.toString());
+		          
+		          
+		          // Handles request for Booking creation
+		          else if (allInput[0].equals("Booking")) {
+		        	  String name = allInput[1];
+		        	  String booking_date = "2018-"+allInput[2]+"-"+allInput[3];
+		        	  DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+		        	  LocalDate date = LocalDate.parse(booking_date, format);
+		        	  int night = Integer.valueOf(allInput[4]);
+		        	  ArrayList<Room> toBeBooked = new ArrayList<Room>();
+		        	  
+		        	  // starting from allInput[5] and so on is the room type and the amount of room booked
+		        	  int singleRoom = 0;
+		        	  int doubleRoom = 0;
+		        	  int tripleRoom = 0;
+		        	  // count the number of single double and triple room wanted
+		        	  for(int i=5;i<allInput.length; i+=2) {
+		        		  if(allInput[i].equals("single")) {
+		        			  singleRoom+=Integer.parseInt(allInput[i+1]);
+		        		  } else if(allInput[i].equals("double")) {
+		        			  doubleRoom+=Integer.parseInt(allInput[i+1]);
+		        		  } else if(allInput[i].equals("triple")) {
+		        			  tripleRoom+=Integer.parseInt(allInput[i+1]);
+		        		  } else {
+		        			  continue;
+		        		  }
+		        	  }
+		        	  
+		        	  Hotel wanted = null;
+		        	  ArrayList<Room> roomCollection = null;
+		        	  for(Hotel h : hotels) {
+		        		  roomCollection = h.getRoom();
+		        		  //ArrayList<Room> order = new ArrayList<Room>();
+		        		  int s = 0;// single room in hotel h
+		        		  int d = 0;// double room in hotel h
+		        		  int t = 0;// triple room in hotel h
+		        		  for (Room r : roomCollection) {
+		        			  if(r.getCapacity()==1) {
+		        				  s++;
+		        			  } else if (r.getCapacity()==2) {
+		        				  d++;
+		        			  } else if (r.getCapacity()==3) {
+		        				  t++;
+		        			  }
+		        			  if(singleRoom==s && doubleRoom==d && tripleRoom==t) {
+		        				  
+		        				  System.out.println("Rooms found");
+		        				  wanted = h;
+		        				  break;
+		        			  }
+		        		  }
+		        	  }
+		        	  if(wanted==null) return;
+		        	  else {
+		        		  ArrayList<Room> hotelRooms = wanted.getRoom();
+		        		  
+		        		  int ws = singleRoom;
+		        		  int wd = doubleRoom;
+		        		  int wt = tripleRoom;
+		        		  // we are sure that the hotel contains the room
+		        		  for(Room r : hotelRooms) {
+		        			  if(r.getCapacity()==1) {
+		        				  toBeBooked.add(r);
+		        				  ws--;
+		        			  } else if (r.getCapacity()==2) {
+		        				  toBeBooked.add(r);
+		        				  wd--;
+		        			  } else if (r.getCapacity()==3) {
+		        				  toBeBooked.add(r);
+		        				  wt--;
+		        			  }
+		        			  if(ws==0 && wd==0 && wt==0) {
+		        				  break;
+		        			  }
+		        			  
+		        		  }
+		        		  
+		        	  }
+		        	  // Make the booking
+		        	  wanted.makeBooking(toBeBooked, name, date, night);
+		        	  // test purpose: display all the booking
+		        	  for(Booking b: wanted.getBookings()) {
+		        		  System.out.println(b.toString());
 		        	  }
 		          }
-		          /*
-		          // Handels request for Booking creation
-		          else if (allInput[0].equals("Booking")) {
-		        	  
-		          }*/
+		          
 	          }
 	      }
 	      catch (FileNotFoundException e)

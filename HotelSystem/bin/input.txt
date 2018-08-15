@@ -3,3 +3,5 @@ Hotel BurLeigh 104 1
 Hotel BurLeigh 101 3 102 2 103 3
 Hotel Surfers 200 3
 Hotel Test 188 1
+Booking Jamal Feb 27 2 triple 2
+Booking Gary Jan 25 2 single 1

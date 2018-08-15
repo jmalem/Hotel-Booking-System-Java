@@ -1,5 +1,6 @@
 package ass1;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Hotel {
@@ -13,6 +14,7 @@ public class Hotel {
 		this.numRooms = rooms.size();
 		this.name = name;
 		this.roomSys = new RoomSystem();
+		this.bookSys = new BookingSystem();
 		this.users = new ArrayList<String>();
 		this.roomSys.addRooms(rooms);
 	}
@@ -31,9 +33,7 @@ public class Hotel {
 	public void addUsers(String user) {
 		this.users.add(user);
 	}
-	public void addRoom(ArrayList<Room> newRooms) {
-		
-		this.roomSys.addAvailableRooms(newRooms);
+	public void addRoom(ArrayList<Room> newRooms){
 		this.roomSys.addRooms(newRooms);
 		this.numRooms = this.roomSys.getNumRooms();
 		
@@ -41,4 +41,15 @@ public class Hotel {
 	public ArrayList<Room> getRoom() {
 		return this.roomSys.getRooms();
 	}
+
+	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
+		this.bookSys.bookRoom(rooms, user, start, lengthOfStay);
+		for(Room n :rooms) {
+			this.roomSys.bookRoom(n);
+		}
+	}
+	public ArrayList<Booking> getBookings(){
+		return this.bookSys.getBookings();
+	}
 }
+ 

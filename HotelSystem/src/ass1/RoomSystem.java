@@ -11,39 +11,37 @@ public class RoomSystem {
 		this.availableRooms = new ArrayList<Room>();
 		this.bookedRooms = new ArrayList<Room>();
 	}
-	public ArrayList<Room> getRooms() {
-		return rooms;
-	}
+	
 	public int getNumRooms() {
 		return rooms.size();
 	}
 	
+	// add new available rooms
 	public void addRooms(ArrayList <Room> rooms) {
 		for(Room x : rooms) {
 			this.rooms.add(x);
-		}
-	}
-	public ArrayList<Room> getAvailableRooms() {
-		return availableRooms;
-	}
-	public void addAvailableRooms(ArrayList <Room> availableRooms) {
-		for(Room x : availableRooms ) {
 			this.availableRooms.add(x);
 		}
 	}
+	// return all rooms
+	public ArrayList<Room> getRooms() {
+		return rooms;
+	}
+	// return only the available rooms
+	public ArrayList<Room> getAvailableRooms() {
+		return availableRooms;
+	}
+	// return the booked rooms
 	public ArrayList<Room> getBookedRooms() {
 		return bookedRooms;
 	}
-	public void addBookedRooms(ArrayList <Room> bookedRooms) {
-		for(Room x : bookedRooms ) {
-			this.bookedRooms.add(x);
-		}
-	}
-	
+
+	// book a room
 	public void bookRoom(Room room) {
 		this.bookedRooms.add(room);
 		this.availableRooms.remove(room);
 	}
+	// unbook a room, used for cancellation
 	public void unbookRoom(Room room) {
 		this.bookedRooms.remove(room);
 		this.availableRooms.add(room);

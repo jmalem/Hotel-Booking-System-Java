@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class BookingSystem {
-	ArrayList<Booking> bookings;
+	private ArrayList<Booking> bookings;
 	public BookingSystem() {
 		this.bookings = new ArrayList<Booking>();
 	}
@@ -25,5 +25,8 @@ public class BookingSystem {
 		this.bookings.add(b);
 		return b;
 		
+	}
+	public ArrayList<Booking> getBookings() {
+		return this.bookings;
 	}
 }
