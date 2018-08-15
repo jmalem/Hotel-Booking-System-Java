@@ -14,6 +14,10 @@ public class RoomSystem {
 	public ArrayList<Room> getRooms() {
 		return rooms;
 	}
+	public int getNumRooms() {
+		return rooms.size();
+	}
+	
 	public void addRooms(Room rooms) {
 		this.rooms.add(rooms);
 	}

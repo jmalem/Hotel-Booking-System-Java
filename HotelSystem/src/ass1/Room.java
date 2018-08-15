@@ -3,10 +3,19 @@ package ass1;
 public class Room {
 	int roomNumber;
 	int capacity;
-	
-	public Room(int roomNumber, int capacity) {
+	String hotel;
+	public Room(int roomNumber, int capacity, String hotel) {
 		this.roomNumber = roomNumber;
 		this.capacity = capacity;
+		this.hotel = hotel;
+	}
+
+	public String getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(String hotel) {
+		this.hotel = hotel;
 	}
 
 	public int getRoomNumber() {

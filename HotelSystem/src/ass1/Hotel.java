@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Hotel {
 	private String name;	
 	private int numRooms;
-	RoomSystem roomSys;
-	//BookingSystem bookSys;
+	private RoomSystem roomSys;
+	private BookingSystem bookSys;
 	private ArrayList<String> users;
 	
 	public Hotel(String name, ArrayList<Room> rooms) {
@@ -20,8 +20,8 @@ public class Hotel {
 		return this.name;
 	}
 
-	public int getCapacity() {
-		return numRooms;
+	public int numRooms() {
+		return this.numRooms;
 	}
 	
 	public ArrayList<String> getUsers() {
@@ -31,6 +31,14 @@ public class Hotel {
 	public void addUsers(String user) {
 		this.users.add(user);
 	}
-	
-	
+	public void addRoom(ArrayList<Room> newRooms) {
+		for(Room x : newRooms) {
+			this.roomSys.addAvailableRooms(x);
+			this.roomSys.addRooms(x);
+			this.numRooms = this.roomSys.getNumRooms();
+		}
+	}
+	public ArrayList<Room> getRoom() {
+		return this.roomSys.getRooms();
+	}
 }
