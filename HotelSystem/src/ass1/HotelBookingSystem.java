@@ -20,8 +20,9 @@ public class HotelBookingSystem {
 		  Scanner sc = null;
 	      try
 	      {
-	          sc = new Scanner(new File(args[0]));    // args[0] is the first command line argument
-	          // Read input from the scanner here
+	          //sc = new Scanner(new File(args[0]));    // args[0] is the first command line argument
+	    	  sc = new Scanner(new File(args[0]));
+	    	  // Read input from the scanner here
 	          String input = sc.nextLine();
 	          String[] allInput = input.split(" ");
 	          HotelBookingSystem hotelSys= new HotelBookingSystem();	// create new instance of hote lbooking system
