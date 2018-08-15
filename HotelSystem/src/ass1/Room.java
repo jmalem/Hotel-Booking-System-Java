@@ -44,7 +44,7 @@ public class Room {
 		} else if (this.capacity ==3) {
 			str = "triple";
 		}
-		return "Room Number: "+this.roomNumber+" "+str;
+		return "Hotel : "+this.hotel+" Room Number: "+this.roomNumber+" "+str;
 	}
 	
 }

@@ -13,8 +13,8 @@ public class Hotel {
 		this.numRooms = rooms.size();
 		this.name = name;
 		this.roomSys = new RoomSystem();
-		
 		this.users = new ArrayList<String>();
+		this.roomSys.addRooms(rooms);
 	}
 	public String getHotelName() {
 		return this.name;
@@ -35,7 +35,7 @@ public class Hotel {
 		
 		this.roomSys.addAvailableRooms(newRooms);
 		this.roomSys.addRooms(newRooms);
-		this.numRooms += this.roomSys.getNumRooms();
+		this.numRooms = this.roomSys.getNumRooms();
 		
 	}
 	public ArrayList<Room> getRoom() {

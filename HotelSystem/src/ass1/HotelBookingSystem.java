@@ -65,10 +65,18 @@ public class HotelBookingSystem {
 		        	  
 		          }
 		          
+		          //display the rooms in every hotel
+		          for(Hotel e : hotels) {
+		        	  ArrayList<Room> all = e.getRoom();
+		        	  for(Room l : all) {
+		        		  System.out.println(l.toString());
+		        	  }
+		          }
+		          /*
 		          // Handels request for Booking creation
 		          else if (allInput[0].equals("Booking")) {
 		        	  
-		          }
+		          }*/
 	          }
 	      }
 	      catch (FileNotFoundException e)
