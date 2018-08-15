@@ -32,11 +32,11 @@ public class Hotel {
 		this.users.add(user);
 	}
 	public void addRoom(ArrayList<Room> newRooms) {
-		for(Room x : newRooms) {
-			this.roomSys.addAvailableRooms(x);
-			this.roomSys.addRooms(x);
-			this.numRooms = this.roomSys.getNumRooms();
-		}
+		
+		this.roomSys.addAvailableRooms(newRooms);
+		this.roomSys.addRooms(newRooms);
+		this.numRooms += this.roomSys.getNumRooms();
+		
 	}
 	public ArrayList<Room> getRoom() {
 		return this.roomSys.getRooms();
