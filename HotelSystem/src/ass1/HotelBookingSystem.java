@@ -196,21 +196,36 @@ public class HotelBookingSystem {
 		          } else if (allInput[0].equals("Cancel")) {
 		        	  String name = allInput[1];
 		        	  for (Hotel h : hotels) {
-		        		  for(Booking b : h.getBookings()) {
+		        		  ArrayList<Booking> hotelBookings = h.getBookings();
+		        		  int found = 0;
+		        		  int hotelIndex = -1;
+		        		  for(Booking b : hotelBookings) {
 		        			  if(b.getName().equals(name)) {
-		        				  ArrayList<Room> rooms = b.getRooms();
+		        				  found=1;
+		        				  hotelIndex=hotels.indexOf(h);
+		        			  }
+		        				 /* ArrayList<Room> rooms = b.getRooms();
+		        				  
+		        				  //rooms.forEach((room) -> room.setBooking(null));
 		        				  for(Room r : rooms) {
-		        					  if(r.getBooking()!=null) {
+		        					  //if(r.getBooking()!=null) {
 		        						  r.setBooking(null);
-		        					  }
+		        					  //}
 		        				  }
 		        				  // cancel the booking after we remove the booking
 		        				  // from the room
 		        				  h.cancelBooking(b.getName());
 		        				  
-		        			  }
+		        			  }*/
+		        		  }
+		        		  if(found==1) {
+		        			  Hotel rem = hotels.get(hotelIndex);
+		        			  rem.cancelBooking(name);
+		        			  break;
 		        		  }
 		        	  }
+		        	  
+		        	  
 		        	  System.out.println("DELETION:\n");
 		        	  for(Hotel h : hotels) {
 		        		  if(h.getBookings()==null) break;
