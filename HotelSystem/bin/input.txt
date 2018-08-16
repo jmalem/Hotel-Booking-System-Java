@@ -8,3 +8,8 @@ Booking Peter Feb 21 2 triple 1
 Booking Kyle Feb 22 2 triple 1
 Booking Max Feb 21 2 triple 1 double 3
 
+
+// in this case jamal booked a triple room 102 surfers hotel for 2 days from 20 feb to 22 feb
+// and peter booked from 21 to 23 feb and the booking system gives different rooms
+// kyle booked from 22 feb to 24 feb and that is allowed because jamal has to checkout in the afternoon
+// Max booked from 21 to 23 feb but no room was found

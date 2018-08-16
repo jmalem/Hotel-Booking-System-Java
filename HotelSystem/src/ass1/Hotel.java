@@ -19,6 +19,16 @@ public class Hotel {
 		this.users = new ArrayList<String>();
 		this.roomSys.addRooms(rooms);
 	}
+	
+	/*
+	public BookingSystem getBookSys() {
+		return this.bookSys;
+	}
+	
+	public RoomSystem getRoomSys() {
+		return this.roomSys;
+	}*/
+	
 	public String getHotelName() {
 		return this.name;
 	}
@@ -56,6 +66,10 @@ public class Hotel {
 	}
 	public ArrayList<Booking> getBookings(){
 		return this.bookSys.getBookings();
+	}
+	
+	public void cancelBooking(String name) {
+		this.bookSys.removeBooking(name);
 	}
 	
 	public void displayRoom() {
