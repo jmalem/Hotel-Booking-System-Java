@@ -11,16 +11,6 @@ public class BookingSystem {
 	
 	public Booking bookRoom(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
 		
-		for(Booking b:this.bookings) {
-			ArrayList<Room> bookedRooms = b.getRooms();
-			for(Room x : bookedRooms) {
-				// if the wanted room
-				if(bookedRooms.contains(x)) {
-					return null;
-				}
-			}
-		}
-		// if no previous booking then make a new one
 		Booking b = new Booking(user, rooms, start, lengthOfStay);
 		this.bookings.add(b);
 		return b;

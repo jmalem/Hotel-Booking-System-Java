@@ -41,7 +41,11 @@ public class Hotel {
 	public ArrayList<Room> getRoom() {
 		return this.roomSys.getRooms();
 	}
+	public ArrayList<Room> getAvailableRoom() {
+		return this.roomSys.getAvailableRooms();
+	}
 
+	
 	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
 		this.bookSys.bookRoom(rooms, user, start, lengthOfStay);
 		for(Room n :rooms) {
@@ -50,6 +54,12 @@ public class Hotel {
 	}
 	public ArrayList<Booking> getBookings(){
 		return this.bookSys.getBookings();
+	}
+	
+	public void displayRoom() {
+		for(Room r : this.roomSys.getRooms()) {
+			System.out.println(r.toString());
+		}
 	}
 }
  
