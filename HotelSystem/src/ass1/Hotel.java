@@ -42,9 +42,10 @@ public class Hotel {
 	public ArrayList<Room> getRoom() {
 		return this.roomSys.getRooms();
 	}
+	/*
 	public ArrayList<Room> getAvailableRoom() {
 		return this.roomSys.getAvailableRooms();
-	}
+	}*/
 
 
 	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {

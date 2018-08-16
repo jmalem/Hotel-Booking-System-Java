@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class RoomSystem {
 	private ArrayList<Room> rooms;
-	private ArrayList<Room> availableRooms;
+	//private ArrayList<Room> availableRooms;
 	private ArrayList<Room> bookedRooms;
 	public RoomSystem () {
 		this.rooms = new ArrayList<Room>();
-		this.availableRooms = new ArrayList<Room>();
+		//this.availableRooms = new ArrayList<Room>();
 		this.bookedRooms = new ArrayList<Room>();
 	}
 	
@@ -20,17 +20,18 @@ public class RoomSystem {
 	public void addRooms(ArrayList <Room> rooms) {
 		for(Room x : rooms) {
 			this.rooms.add(x);
-			this.availableRooms.add(x);
+			//this.availableRooms.add(x);
 		}
 	}
 	// return all rooms
 	public ArrayList<Room> getRooms() {
 		return rooms;
 	}
+	/*// DONT USE THIS ANYMORE, we have date checking
 	// return only the available rooms
 	public ArrayList<Room> getAvailableRooms() {
 		return availableRooms;
-	}
+	}*/
 	// return the booked rooms
 	public ArrayList<Room> getBookedRooms() {
 		return bookedRooms;
@@ -39,12 +40,12 @@ public class RoomSystem {
 	// book a room
 	public void bookRoom(Room room) {
 		this.bookedRooms.add(room);
-		this.availableRooms.remove(room);
+		//this.availableRooms.remove(room);
 	}
 	// unbook a room, used for cancellation
 	public void unbookRoom(Room room) {
 		this.bookedRooms.remove(room);
-		this.availableRooms.add(room);
+		//this.availableRooms.add(room);
 	}
 	
 }

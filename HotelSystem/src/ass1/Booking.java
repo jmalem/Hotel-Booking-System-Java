@@ -27,6 +27,10 @@ public class Booking {
 		this.rooms = rooms;
 	}
 	
+	public LocalDate getEnd() {
+		return this.end;
+	}
+	
 	@Override
 	public String toString() {
 		return "Booking [name=" + name + ", rooms=" + rooms + ", start=" + start + ", end=" + end + "]";

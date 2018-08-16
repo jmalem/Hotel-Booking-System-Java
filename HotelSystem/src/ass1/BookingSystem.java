@@ -13,8 +13,11 @@ public class BookingSystem {
 		
 		Booking b = new Booking(user, rooms, start, lengthOfStay);
 		this.bookings.add(b);
-		return b;
 		
+		for(Room r : rooms) {
+			r.setBooking(b);
+		}
+		return b;
 	}
 	public ArrayList<Booking> getBookings() {
 		return this.bookings;

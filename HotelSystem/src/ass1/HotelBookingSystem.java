@@ -79,12 +79,12 @@ public class HotelBookingSystem {
 		          
 		          // Handles request for Booking creation
 		          else if (allInput[0].equals("Booking")) {
-		        	  
-		        	  	String name = allInput[1];
-		        	  	//System.out.println(name);
-		        	  	String booking_date = "2018-"+allInput[2]+"-"+allInput[3];
-		        	  	DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-		        	  	LocalDate date = LocalDate.parse(booking_date, format);
+
+		        	  String name = allInput[1];
+		        	  //System.out.println(name);
+		        	  String booking_date = "2018-"+allInput[2]+"-"+allInput[3];
+		        	  DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+		        	  LocalDate date = LocalDate.parse(booking_date, format); // date is the start date
 		        	  int night = Integer.valueOf(allInput[4]);
 		        	  ArrayList<Room> toBeBooked = new ArrayList<Room>();
 		        	  
@@ -153,13 +153,11 @@ public class HotelBookingSystem {
 		        	  
 		        	  //System.out.println(s+" " +" "+ d+" " +t);
 		        	  if(wanted==null) {
-		        		  System.out.println("hotel is null");
+		        		  System.out.println("No room was found");
 		        		  return;
-		        	  }
-		        	  else {
-		        		  	// only get the available rooms so we dont have to do another
-		        		  // check on hte booking system
-		        		  	ArrayList<Room> hotelRooms = wanted.getAvailableRoom();
+		        	  } else {
+		        		  	// get all rooms and do some checking on the date
+		        		  	ArrayList<Room> hotelRooms = wanted.getRoom();
 		        		  
 		        		  	int ws = singleRoom;
 		        		  	int wd = doubleRoom;
@@ -167,15 +165,16 @@ public class HotelBookingSystem {
 		        		  	// we are sure that the hotel contains the room
 		        		  	for(Room r : hotelRooms) {
 		        		  		//System.out.println(r.toString());
-		        			  	if(r.getCapacity()==1 && ws!=0) {
-		        				  	//System.out.println("S add "+r.getRoomNumber());
+		        		  		Booking currRoom = r.getBooking();
+		        			  	if(r.getCapacity()==1 && ws!=0 && (currRoom==null || currRoom.getEnd().equals(date) || currRoom.getEnd().isBefore(date))) {
+		        				  	//System.out.println("S add "+r.getRoomNumber());	  		
 		        				  	toBeBooked.add(r);
 		        				  	ws--;
-		        			  	} else if (r.getCapacity()==2 && wd!=0) {
+		        			  	} else if (r.getCapacity()==2 && wd!=0 && (currRoom==null || currRoom.getEnd().equals(date) || currRoom.getEnd().isBefore(date))) {
 		        				  	//System.out.println("D add "+r.getRoomNumber());
 		        				  	toBeBooked.add(r);
 		        				  	wd--;
-		        			  	} else if (r.getCapacity()==3 && wt!=0) {
+		        			  	} else if (r.getCapacity()==3 && wt!=0 && (currRoom==null || currRoom.getEnd().equals(date) || currRoom.getEnd().isBefore(date))) {
 		        				  	//System.out.println("T add "+r.getRoomNumber());
 		        				  	toBeBooked.add(r);
 		        				  	wt--;
@@ -193,6 +192,7 @@ public class HotelBookingSystem {
 		        	  for(Booking b: wanted.getBookings()) {
 		        		  System.out.println(b.toString());
 		        	  }
+		        	  System.out.println("\n\n");
 		          }
 		          
 	          }
