@@ -80,11 +80,11 @@ public class HotelBookingSystem {
 		          // Handles request for Booking creation
 		          else if (allInput[0].equals("Booking")) {
 		        	  
-		        	  String name = allInput[1];
-		        	  //System.out.println(name);
-		        	  String booking_date = "2018-"+allInput[2]+"-"+allInput[3];
-		        	  DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-		        	  LocalDate date = LocalDate.parse(booking_date, format);
+		        	  	String name = allInput[1];
+		        	  	//System.out.println(name);
+		        	  	String booking_date = "2018-"+allInput[2]+"-"+allInput[3];
+		        	  	DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+		        	  	LocalDate date = LocalDate.parse(booking_date, format);
 		        	  int night = Integer.valueOf(allInput[4]);
 		        	  ArrayList<Room> toBeBooked = new ArrayList<Room>();
 		        	  
@@ -110,8 +110,8 @@ public class HotelBookingSystem {
 		        	  /*
 		        	  // testing--------
 		        	  System.out.println("s "+singleRoom);
-	        		  System.out.println("d "+doubleRoom);
-	        		  System.out.println("t "+tripleRoom);
+		      		  System.out.println("d "+doubleRoom);
+		      		  System.out.println("t "+tripleRoom);
 		        	  */
 		        	  Hotel wanted = null;
 		        	  ArrayList<Room> roomCollection = new ArrayList<Room>();

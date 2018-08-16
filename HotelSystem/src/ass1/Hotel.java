@@ -1,6 +1,7 @@
 package ass1;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Hotel {
@@ -45,7 +46,7 @@ public class Hotel {
 		return this.roomSys.getAvailableRooms();
 	}
 
-	
+
 	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
 		this.bookSys.bookRoom(rooms, user, start, lengthOfStay);
 		for(Room n :rooms) {
