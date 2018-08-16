@@ -1,7 +1,10 @@
 Hotel Surfers 107 2 102 3 101 1 100 1
 Hotel BurLeigh 104 1
 Hotel BurLeigh 101 3 102 2 103 3
-Hotel Surfers 200 3
+Hotel Surfers 200 3 201 3
 Booking Gary Jan 25 2 single 1 double 1 triple 1
 Booking Jamal Feb 20 2 triple 1
 Booking Peter Feb 21 2 triple 1
+Booking Kyle Feb 22 2 triple 1
+Booking Max Feb 21 2 triple 1 double 3
+
