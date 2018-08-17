@@ -32,7 +32,7 @@ public class Booking {
 	}
 	
 	public StringBuilder printBook() {
-		StringBuilder booked = new StringBuilder("Booking ");
+		StringBuilder booked = new StringBuilder();
 		booked.append(name);
 		for(Room r : rooms) {
 			booked.append(" ");

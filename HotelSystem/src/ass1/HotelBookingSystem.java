@@ -62,7 +62,7 @@ public class HotelBookingSystem {
       	  
 	}
 	
-	public void makeNewBooking(String input) {
+	public void makeNewBooking(String input, String typeOfBooking) {
 		String[] allInput = input.split(" ");
 		String name = allInput[1];
 	    //System.out.println(name);
@@ -171,13 +171,17 @@ public class HotelBookingSystem {
   		  	
   	  	}
   	  	// Make the booking
+  		System.out.print(typeOfBooking+" ");
+	  	
   	  	wanted.makeBooking(toBeBooked, name, date, night);
   	  	
   	  	// test purpose: display all the booking
-  	  	for(Booking b: wanted.getBookings()) {
+  	  	/*for(Booking b: wanted.getBookings()) {
+  	  		System.out.print(typeOfBooking+" ");
   	  		System.out.println(b.printBook());
   	  	}
   	  	System.out.println("\n\n");
+		*/
 	}
 	
 	public void cancelBooking(String input) {
@@ -230,6 +234,10 @@ public class HotelBookingSystem {
 	}
 	
 	public void changeBooking(String input) {
+		String[] allInput = input.split(" ");
+		String name = allInput[1];
+		cancelBooking(name);
+		makeNewBooking(input, "Change");
 		
 	}
 	
@@ -249,14 +257,14 @@ public class HotelBookingSystem {
 		        	  hotelSys.makeNewHotel(input);
 		        	  
 		          } else if (allInput[0].equals("Booking")) { // Handles booking creation
-		        	  hotelSys.makeNewBooking(input);
+		        	  hotelSys.makeNewBooking(input, "Booking");
 		        	  
 		          } else if (allInput[0].equals("Cancel")) {
 		        	  hotelSys.cancelBooking(input);
 		        	  
 		          } else if (allInput[0].equals("Change")) {
 		        	  hotelSys.cancelBooking(input);
-		        	  hotelSys.makeNewBooking(input);
+		        	  hotelSys.makeNewBooking(input, "Change");
 		          }
 		          
 	          }

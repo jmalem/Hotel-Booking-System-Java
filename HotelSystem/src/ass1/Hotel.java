@@ -13,7 +13,7 @@ public class Hotel {
 	public Hotel(String name, ArrayList<Room> rooms) {
 		this.numRooms = rooms.size();
 		this.name = name;
-		//this.users = new ArrayList<String>();
+		this.bookings = new ArrayList<Booking>();
 		this.rooms=rooms;
 	}
 	
@@ -39,11 +39,21 @@ public class Hotel {
 	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
 		Booking b = new Booking(user, rooms, start, lengthOfStay);
 		this.bookings.add(b);
-		
+		System.out.println(b.printBook());
 		for(Room n :rooms) {
 			n.setBooking(b);
 		}
 	}
+	/*
+	public void changeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
+		Booking b = new Booking(user, rooms, start, lengthOfStay);
+		this.bookings.add(b);
+		
+		for(Room n :rooms) {
+			n.setBooking(b);
+		}
+	}*/
+	
 	public ArrayList<Booking> getBookings(){
 		return this.bookings;
 	}
