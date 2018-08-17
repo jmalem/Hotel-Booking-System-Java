@@ -37,9 +37,32 @@ public class Hotel {
 	}
 
 	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
-		Booking b = new Booking(user, rooms, start, lengthOfStay);
-		this.bookings.add(b);
-		System.out.println(b.printBook());
+		Booking b = new Booking(user, rooms, start, lengthOfStay, this.name);
+		if(this.bookings.size()==0) {
+			this.bookings.add(b);
+		} else {
+			
+			for(int i=0; i<this.bookings.size();i++) {
+				//System.out.println(i);
+				Booking curr = bookings.get(i);
+				LocalDate currStart = curr.getStart();
+				LocalDate currEnd = curr.getEnd();
+				if(i==0 && (b.getStart().isBefore(currStart))) {
+					this.bookings.add(0,b);
+					break;
+				} else if(i==this.bookings.size()-1 && (b.getStart().isAfter(currStart) ||b.getStart().isEqual(currStart))) {
+					this.bookings.add(b);
+					break;
+				} else {
+					if(b.getStart().isAfter(curr.getStart()) && i!=this.bookings.size()-1) {
+						this.bookings.add(i+1, b);
+						break;
+					}	
+				}
+			
+			}
+		}
+		System.out.println(b.showBook());
 		for(Room n :rooms) {
 			n.setBooking(b);
 		}
@@ -58,25 +81,49 @@ public class Hotel {
 		return this.bookings;
 	}
 	
-	public void cancelBooking(String name) {
+	public void cancelBooking(String name, String typeOfBooking) {
 		
 		ArrayList<Integer> indexes = new ArrayList<Integer> ();
-		
+		Booking tmp =null;
 		for(Booking b : bookings) {
 			if(b.getName().equals(name)) {
 				indexes.add(bookings.indexOf(b));
+				tmp=b;
+			}
+		}
+		// dont forget to set the booking in each room to null
+		// booked contains the room number of booked rooms
+		
+		ArrayList<Integer> booked = new ArrayList<Integer>();
+		for(Room r :tmp.getRooms()) {
+			booked.add(r.getRoomNumber());
+		}
+		// if the room in hotel is one of the booked rooms, set the booking to null
+		for(Room r : this.rooms) {
+			int num =r.getRoomNumber();
+			//System.out.println("HERE");
+			if(booked.contains(num)) {
+				r.setBooking(null);
 			}
 		}
 		
 		for(int index : indexes) {
 			bookings.remove(index);
 		}
+		if(typeOfBooking.equals("Booking")) {
+			System.out.println("Cancel "+name);	
+		}
 	}
-	
 	public void displayRoom() {
 		for(Room r : this.rooms) {
 			System.out.println(r.toString());
 		}
+	}
+	public StringBuilder printBook(Hotel h, ArrayList<Booking> bookings) {
+		
+		
+		//System.out.println("HERE "+details);
+		return null;
 	}
 }
  

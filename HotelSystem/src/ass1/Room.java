@@ -1,6 +1,7 @@
 package ass1;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Room {
 	int roomNumber;
@@ -11,7 +12,7 @@ public class Room {
 		this.roomNumber = roomNumber;
 		this.capacity = capacity;
 		this.hotel = hotel;
-		
+		this.booking = null;
 	}
 	
 	public void setBooking(Booking b) {
@@ -48,6 +49,7 @@ public class Room {
 
 	@Override
 	public String toString() {
+		
 		String str = new String();
 		if(this.capacity==1) {
 			str = "single";

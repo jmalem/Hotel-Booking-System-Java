@@ -14,6 +14,15 @@ public class HotelBookingSystem {
 		this.hotels = new ArrayList<Hotel>();
 	}
 	
+	public Hotel hotelExist(String hotelName) {
+		
+		for(Hotel h:hotels) {
+			if(h.getHotelName().equals(hotelName)) {
+				return h;
+			}
+		}
+		return null;
+	}
 	public void makeNewHotel(String input) {
 		// Create new instance of hotel booking system
         // each hotel has 1 booking system
@@ -30,36 +39,125 @@ public class HotelBookingSystem {
       		  //System.out.println(allInput[i+1]);
       		  //System.out.println(allInput[1]);
       	  }
+      	  Hotel h = hotelExist(allInput[1]);
+      	  if(h==null) {
+    		  Hotel x = new Hotel(allInput[1], rooms);
+    		  hotels.add(x);
+    	  } else {
+    		  h.addRoom(rooms);
+    	  }
       	  
-      	  int exist=0;
-      	  for(Hotel h:hotels) {
-      		  exist=0;
-      		  if(h.getHotelName().equals(allInput[1])) {
-      			  h.addRoom(rooms);
-      			  exist=1;
-      			  //System.out.println("Hotel exist");
-      			  break;
-      		  }
-      	  }
-      	  if(exist==0) {
-      		  Hotel x = new Hotel(allInput[1], rooms);
-      		  hotels.add(x);
-      	  }
-      	  
-      	 
-      	  
-      	  //display the rooms in every hotel
-          // testing purpose
-          /*
-      	  for(Hotel e : hotels) {
-        	  ArrayList<Room> all = e.getRoom();
-        	  for(Room l : all) {
-        		  System.out.println(l.toString());
-        	  }
-        	  System.out.println("");
-          }*/
-        
-      	  
+	}
+	
+	public ArrayList<Room> findARoom(int ws, int wd, int wt, LocalDate start, LocalDate end) {
+		ArrayList <Room> result = new ArrayList<Room>();
+		int s = 0;// single room in the hotel
+		int d = 0;
+		int t = 0;
+		int found=0;
+		Hotel foundHotel = null;
+		for(Hotel h : hotels) {
+			ArrayList<Room> hotelRooms = h.getRoom();
+			/*if(hotelRooms.isEmpty()) {
+				System.out.println("Hotel "+h.getHotelName()+" is empty");
+				
+			} else {
+				System.out.println("Hotel "+h.getHotelName()+" is NOT empty");
+			}*/
+			Booking b = null;
+			s=0;
+			d=0;
+			t=0;
+			
+			for(Room r : hotelRooms) {
+				// b is the booking for that room
+				b=r.getBooking();
+				if(b==null) {
+					//System.out.println("Here");
+					if(r.getCapacity()==1 && s<ws) {
+						s++;
+					} else if(r.getCapacity()==2 && d<wd) {
+						d++;
+					} else if(r.getCapacity()==3 && t<wt) {
+						t++;
+					}
+					
+				} else {
+					// check the date first
+					LocalDate bookingStart = b.getStart(); // start date of that room
+					LocalDate bookingEnd = b.getEnd(); //end date of that room
+					if(bookingStart.isAfter(end)||bookingStart.isEqual(end)||bookingEnd.isBefore(start) || bookingEnd.isEqual(start)) {
+						
+						// now check the capacity
+						if(r.getCapacity()==1) {
+							s++;
+						} else if(r.getCapacity()==2) {
+							d++;
+						} else if(r.getCapacity()==3) {
+							t++;
+						}
+					}
+				}
+				if(s>=ws && d>=wd && t>=wt) {
+					found=1;
+					foundHotel=h;
+					break;
+				}
+				
+				
+			}
+			if(found==0) {
+				continue;
+			}
+			//Go through the room in the hotel and add them to to result
+			s=0;
+			d=0;
+			t=0;
+			for(Room r : foundHotel.getRoom()) {
+				// b is the booking for that room
+				b=r.getBooking();
+				
+				
+				if(b==null) {
+					if(r.getCapacity()==1 && s!=ws) {
+						result.add(r);
+						s++;
+					} else if(r.getCapacity()==2 && d!=wd) {
+						result.add(r);
+						d++;
+					} else if(r.getCapacity()==3 && t!=wt) {
+						result.add(r);
+						t++;
+					}
+				} else {
+					// check the date first
+					LocalDate bookingStart = b.getStart(); // start date of that room
+					LocalDate bookingEnd = b.getEnd(); //end date of that room
+					if(bookingStart.isAfter(end)||bookingStart.isEqual(end)||bookingEnd.isBefore(start) || bookingEnd.isEqual(start)) {
+						
+						// now check the capacity
+						if(r.getCapacity()==1 && s!=ws) {
+							result.add(r);
+							s++;
+						} else if(r.getCapacity()==2 && d!=wd) {
+							result.add(r);
+							d++;
+						} else if(r.getCapacity()==3 && t!=wt) {
+							result.add(r);
+							t++;
+						}
+						
+					}
+				}
+				if(s==ws && d==wd && t==wt) {
+					return result;
+				}
+				
+				
+			}
+		}
+		
+		return null;
 	}
 	
 	public void makeNewBooking(String input, String typeOfBooking) {
@@ -92,153 +190,118 @@ public class HotelBookingSystem {
 	    	
 	    }
 	    /*
+	    System.out.println("make book for "+ name);
 	  	// testing--------
-	  	System.out.println("s "+singleRoom);
-		  	System.out.println("d "+doubleRoom);
-		  	System.out.println("t "+tripleRoom);
+  		System.out.println("s "+singleRoom);
+	  	System.out.println("d "+doubleRoom);
+	  	System.out.println("t "+tripleRoom);
 	     */
+	    
+	    
   	  	Hotel wanted = null;
-  	  	ArrayList<Room> roomCollection = new ArrayList<Room>();
-  	  	int found = 0;
-  	  	for(Hotel h : hotels) {
-  	  		found=0;
-  	  		roomCollection = h.getRoom();
-  	  		//h.displayRoom();
-  	  		//ArrayList<Room> order = new ArrayList<Room>();
-  	  		int s = 0;// single room in hotel h
-  	  		int d = 0;// double room in hotel h
-  	  		int t = 0;// triple room in hotel h
-  		  
-  		  
-  		  
-  	  		for (Room r : roomCollection) {
-  	  			//System.out.println(r.toString());
-  	  			if(r.getCapacity()==1) {
-  	  				s++;
-  	  			} else if (r.getCapacity()==2) {
-  	  				d++;
-  	  			} else if (r.getCapacity()==3) {
-  	  				t++;
-  	  			}
-  			  
-  	  			if(singleRoom<=s && doubleRoom<=d && tripleRoom<=t) {
-  	  				found=1;
-  	  				//System.out.println("Rooms found in hotel "+h.getHotelName()+" for "+name);
-  	  				wanted = h;
-  	  				break;
-  	  			}
-  			  
-  	  		}
-  	  		// to stop the loop from searching in other hotel again
-  	  		if(found==1) {
-  	  			break;
-  	  		}
+  	  	
+  	  	toBeBooked = findARoom(singleRoom, doubleRoom, tripleRoom, date, date.plusDays(night));
+  	  	if( toBeBooked==null || toBeBooked.isEmpty()) {
+  	  		System.out.println("Booking Rejected");
+			return;
   	  	}
-  	  
-  	  	//System.out.println(s+" " +" "+ d+" " +t);
-  	  	if(wanted==null || found==0) {
-  	  		System.out.println("Booking rejected");
-  	  		return;
-  	  	} else {
-  		  	// get all rooms and do some checking on the date
-  		  	ArrayList<Room> hotelRooms = wanted.getRoom();
-  		  
-  		  	int ws = singleRoom;
-  		  	int wd = doubleRoom;
-  		  	int wt = tripleRoom;
-  		  	// we are sure that the hotel contains the room
-  		  	for(Room r : hotelRooms) {
-  		  		//System.out.println(r.toString());
-  		  		Booking currRoom = r.getBooking();
-  			  	if(r.getCapacity()==1 && ws!=0 && (currRoom==null || currRoom.getEnd().equals(date) || currRoom.getEnd().isBefore(date))) {
-  				  	//System.out.println("S add "+r.getRoomNumber());	  		
-  				  	toBeBooked.add(r);
-  				  	ws--;
-  			  	} else if (r.getCapacity()==2 && wd!=0 && (currRoom==null || currRoom.getEnd().equals(date) || currRoom.getEnd().isBefore(date))) {
-  				  	//System.out.println("D add "+r.getRoomNumber());
-  				  	toBeBooked.add(r);
-  				  	wd--;
-  			  	} else if (r.getCapacity()==3 && wt!=0 && (currRoom==null || currRoom.getEnd().equals(date) || currRoom.getEnd().isBefore(date))) {
-  				  	//System.out.println("T add "+r.getRoomNumber());
-  				  	toBeBooked.add(r);
-  				  	wt--;
-  			  	}
-  			  	if(ws==0 && wd==0 && wt==0) {
-  				  	break;
-  			  	}
-  			  
-  		  	}
-  		  	
-  	  	}
-  	  	// Make the booking
+  	  	String hotelName = toBeBooked.get(0).getHotel();
+	  	for(Hotel p : hotels) {
+	  		if(p.getHotelName().equals(hotelName)) {
+	  			wanted = p;
+	  			break;
+	  		}
+	  	}
+  	  	
   		System.out.print(typeOfBooking+" ");
 	  	
   	  	wanted.makeBooking(toBeBooked, name, date, night);
   	  	
-  	  	// test purpose: display all the booking
-  	  	/*for(Booking b: wanted.getBookings()) {
-  	  		System.out.print(typeOfBooking+" ");
-  	  		System.out.println(b.printBook());
-  	  	}
-  	  	System.out.println("\n\n");
-		*/
+  	  	
 	}
 	
-	public void cancelBooking(String input) {
+	public void cancelBooking(String input, String typeOfInput) {
 		String[] allInput = input.split(" ");
 		String name = allInput[1];
-		
+		//System.out.println(name);
 		int found = 0;
-		for (Hotel h : hotels) {
+		for (Hotel h : this.hotels) {
 			ArrayList<Booking> hotelBookings = h.getBookings();
+			
 			found = 0;
 			int hotelIndex = -1;
+			/*if(hotelBookings.isEmpty()) {
+				System.out.println("empty");
+			}*/
 			for(Booking b : hotelBookings) {
+				//System.out.println(b.getName()+"kkkkk");
 				if(b.getName().equals(name)) {
 					found=1;
 					hotelIndex=hotels.indexOf(h);
+					break;
 				}
-				/* ArrayList<Room> rooms = b.getRooms();
-			  
-			  	//rooms.forEach((room) -> room.setBooking(null));
-			  	for(Room r : rooms) {
-				  //if(r.getBooking()!=null) {
-					  r.setBooking(null);
-				  //}
-			  	}
-			  	// cancel the booking after we remove the booking
-			  	// from the room
-			  	h.cancelBooking(b.getName());
-			  	
-		  	}*/
+				
+				
 			}
 			if(found==1) {
 				Hotel rem = hotels.get(hotelIndex);
-				rem.cancelBooking(name);
+				rem.cancelBooking(name, typeOfInput);
 				break;
 			}
   	  	}
 		if (found==0) {
+			
   	  		// if no room was found just exit and dont print anything
   	  		return;
   	  	}
-  	  	/*
-  	  	System.out.println("DELETION:\n");
-  	  	for(Hotel h : hotels) {
-  	  		if(h.getBookings()==null) break;
-  	  		for(Booking b: h.getBookings()) {
-  	  			System.out.println(b.printBook());
-  	  		}
-  	  	}
-  	  	System.out.println("==========\n\n");*/
 	}
 	
 	public void changeBooking(String input) {
 		String[] allInput = input.split(" ");
 		String name = allInput[1];
-		cancelBooking(name);
+		cancelBooking(name, "Change");
 		makeNewBooking(input, "Change");
 		
+	}
+	
+	public void printBooking(String hotelName) {
+		Hotel h = hotelExist(hotelName);
+		
+		if(h==null) {
+			System.out.println("Hotel not found");
+			return;
+		} else {
+			
+			ArrayList<Booking> allBookings = h.getBookings();
+			ArrayList<Room> allRooms = h.getRoom();
+			for(Room r : allRooms) {
+				//System.out.println(r.getHotel()+" "+r.getRoomNumber());
+				if(r.getBooking()==null) {
+					System.out.println(r.getHotel()+" "+r.getRoomNumber());
+				} else {
+					System.out.print(r.getHotel()+" "+r.getRoomNumber());
+					ArrayList<Booking> curr = h.getBookings();
+					for(Booking a : curr) {
+						ArrayList<Room> inBooking = a.getRooms();
+						for(Room q : inBooking) {
+							if(q.getRoomNumber()==r.getRoomNumber()) {
+								DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd");
+								String startDate =a.getStart().format(formatter);
+								System.out.print(" "+startDate+" "+a.getNight());
+							}
+						}
+					}
+					System.out.println();
+					
+						
+					
+				}
+			}
+			/*for(Booking b : allBookings) {
+				//System.out.println(b.getName()+"vvvv");
+				System.out.println("PrintBOOK");
+			}*/
+		}
 	}
 	
 	public static void main (String args[]) {
@@ -260,13 +323,14 @@ public class HotelBookingSystem {
 		        	  hotelSys.makeNewBooking(input, "Booking");
 		        	  
 		          } else if (allInput[0].equals("Cancel")) {
-		        	  hotelSys.cancelBooking(input);
+		        	  hotelSys.cancelBooking(input, "Booking");
 		        	  
 		          } else if (allInput[0].equals("Change")) {
-		        	  hotelSys.cancelBooking(input);
+		        	  hotelSys.cancelBooking(input, "Change");
 		        	  hotelSys.makeNewBooking(input, "Change");
+		          } else if (allInput[0].equals("Print")) {
+		        	  hotelSys.printBooking(allInput[1]);
 		          }
-		          
 	          }
 	      }
 	      catch (FileNotFoundException e)
