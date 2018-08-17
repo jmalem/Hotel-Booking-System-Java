@@ -7,27 +7,15 @@ import java.util.ArrayList;
 public class Hotel {
 	private String name;	
 	private int numRooms;
-	private RoomSystem roomSys;
-	private BookingSystem bookSys;
-	private ArrayList<String> users;
+	private ArrayList<Room> rooms;
+	private ArrayList<Booking> bookings;
 	
 	public Hotel(String name, ArrayList<Room> rooms) {
 		this.numRooms = rooms.size();
 		this.name = name;
-		this.roomSys = new RoomSystem();
-		this.bookSys = new BookingSystem();
-		this.users = new ArrayList<String>();
-		this.roomSys.addRooms(rooms);
+		//this.users = new ArrayList<String>();
+		this.rooms.addAll(rooms);
 	}
-	
-	/*
-	public BookingSystem getBookSys() {
-		return this.bookSys;
-	}
-	
-	public RoomSystem getRoomSys() {
-		return this.roomSys;
-	}*/
 	
 	public String getHotelName() {
 		return this.name;
@@ -37,43 +25,44 @@ public class Hotel {
 		return this.numRooms;
 	}
 	
-	public ArrayList<String> getUsers() {
-		return users;
-	}
-
-	public void addUsers(String user) {
-		this.users.add(user);
-	}
 	public void addRoom(ArrayList<Room> newRooms){
-		this.roomSys.addRooms(newRooms);
-		this.numRooms = this.roomSys.getNumRooms();
+		this.rooms.addAll(newRooms);
+		this.numRooms = this.rooms.size();
 		
 	}
 	public ArrayList<Room> getRoom() {
-		return this.roomSys.getRooms();
+		return this.rooms;
 	}
-	/*
-	public ArrayList<Room> getAvailableRoom() {
-		return this.roomSys.getAvailableRooms();
-	}*/
-
 
 	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
-		this.bookSys.bookRoom(rooms, user, start, lengthOfStay);
+		Booking b = new Booking(user, rooms, start, lengthOfStay);
+		this.bookings.add(b);
+		
 		for(Room n :rooms) {
-			this.roomSys.bookRoom(n);
+			n.setBooking(b);
 		}
 	}
 	public ArrayList<Booking> getBookings(){
-		return this.bookSys.getBookings();
+		return this.bookings;
 	}
 	
 	public void cancelBooking(String name) {
-		this.bookSys.removeBooking(name);
+		
+		ArrayList<Integer> indexes = new ArrayList<Integer> ();
+		
+		for(Booking b : bookings) {
+			if(b.getName().equals(name)) {
+				indexes.add(bookings.indexOf(b));
+			}
+		}
+		
+		for(int index : indexes) {
+			bookings.remove(index);
+		}
 	}
 	
 	public void displayRoom() {
-		for(Room r : this.roomSys.getRooms()) {
+		for(Room r : this.rooms) {
 			System.out.println(r.toString());
 		}
 	}

@@ -8,59 +8,45 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HotelBookingSystem {
+	private ArrayList<Hotel> hotels;
 	
-	private static ArrayList<Hotel> hotels;
 	public HotelBookingSystem() {
 		this.hotels = new ArrayList<Hotel>();
 	}
-	/*
-	public void addHotel(Hotel h) {
-		this.hotels.add(h);
-	}*/
-	
-	
-	
+	public void addHotel(Hotel x) {
+		this.hotels.add(x);
+	}
 	public void makeNewHotel(String input) {
 		// Create new instance of hotel booking system
         // each hotel has 1 booking system
         
         String[] allInput = input.split(" ");
-		//System.out.print(input);
-        
+		
         // Handles request for Hotel Creation
-        if(allInput[0].equals("Hotel")) {
+        
       	  ArrayList<Room> rooms  = new ArrayList<Room>();
       	  // create all the rooms and put it in a list
       	  for(int i =2; i <allInput.length;i+=2) {
       		  rooms.add(new Room(Integer.valueOf(allInput[i]), Integer.valueOf(allInput[i+1]), allInput[1]));
       	  }
       	  
-      	  
-      	  int hotelExist =0;
-      	  for(Hotel x :hotels) {
-      		  if(x.getHotelName().equals(allInput[1])) {
-      			  hotelExist=1;//if hotel exist set indicator to 1
-      			  x.addRoom(rooms);// and add all the new rooms
-      			  
-      			  StringBuilder roomNumbers = new StringBuilder("Hotel " + x.getHotelName());
-      			  for(Room r : rooms) {
-      				  roomNumbers.append(" ");
-      				  roomNumbers.append(r.getRoomNumber());
-      			  }
-      			  
-      			  System.out.println(roomNumbers);
+      	  int exist=0;
+      	  for(Hotel h:hotels) {
+      		  exist=0;
+      		  if(h.getHotelName().equals(allInput[1])) {
+      			  h.addRoom(rooms);
+      			  exist=1;
+      			  System.out.println("Hotel exist");
       			  break;
       		  }
       	  }
-      	  if(hotelExist==0) {
-      		  // create the hotel with all the rooms
-      		  Hotel z = new Hotel(allInput[1], rooms);
+      	  if(exist==0) {
+      		  Hotel x = new Hotel(allInput[1], rooms);
+      		  hotels.add(x);
+      	  }
       	  
-      	  	  // insert the hotel object into the list of hotels
-      		  //hotelSys.addHotel(z);
-      		  this.hotels.add(z);
-      		 
-      	  }/*
+      	 
+      	  
       	  //display the rooms in every hotel
           // testing purpose
           for(Hotel e : hotels) {
@@ -68,8 +54,8 @@ public class HotelBookingSystem {
         	  for(Room l : all) {
         		  System.out.println(l.toString());
         	  }
-          }*/
-        }
+          }
+        
       	  
 	}
 	
