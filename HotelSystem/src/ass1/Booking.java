@@ -31,9 +31,14 @@ public class Booking {
 		return this.end;
 	}
 	
-	@Override
-	public String toString() {
-		return "Booking [name=" + name + ", rooms=" + rooms + ", start=" + start + ", end=" + end + "]";
+	public StringBuilder printBook() {
+		StringBuilder booked = new StringBuilder("Booking ");
+		booked.append(name);
+		for(Room r : rooms) {
+			booked.append(" ");
+			booked.append(r.getRoomNumber());
+		}
+		return booked;
 	}
 	
 }

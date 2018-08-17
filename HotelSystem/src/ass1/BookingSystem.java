@@ -18,6 +18,8 @@ public class BookingSystem {
 		for(Room r : rooms) {
 			r.setBooking(b);
 		}
+		
+		System.out.println(b.printBook());
 		return b;
 	}
 	public ArrayList<Booking> getBookings() {

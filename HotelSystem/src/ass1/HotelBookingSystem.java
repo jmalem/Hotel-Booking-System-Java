@@ -25,7 +25,7 @@ public class HotelBookingSystem {
         // each hotel has 1 booking system
         
         String[] allInput = input.split(" ");
-		System.out.print(input);
+		//System.out.print(input);
         
         // Handles request for Hotel Creation
         if(allInput[0].equals("Hotel")) {
@@ -41,7 +41,14 @@ public class HotelBookingSystem {
       		  if(x.getHotelName().equals(allInput[1])) {
       			  hotelExist=1;//if hotel exist set indicator to 1
       			  x.addRoom(rooms);// and add all the new rooms
-      			  System.out.println("Hotel "+x.getHotelName()+" now has "+x.numRooms()+" rooms");
+      			  
+      			  StringBuilder roomNumbers = new StringBuilder("Hotel " + x.getHotelName());
+      			  for(Room r : rooms) {
+      				  roomNumbers.append(" ");
+      				  roomNumbers.append(r.getRoomNumber());
+      			  }
+      			  
+      			  System.out.println(roomNumbers);
       			  break;
       		  }
       	  }
@@ -140,8 +147,8 @@ public class HotelBookingSystem {
   	  	}
   	  
   	  	//System.out.println(s+" " +" "+ d+" " +t);
-  	  	if(wanted==null) {
-  	  		System.out.println("No room was found");
+  	  	if(wanted==null || found==0) {
+  	  		System.out.println("Booking rejected");
   	  		return;
   	  	} else {
   		  	// get all rooms and do some checking on the date
@@ -176,11 +183,12 @@ public class HotelBookingSystem {
   	  	}
   	  	// Make the booking
   	  	wanted.makeBooking(toBeBooked, name, date, night);
+  	  	/*
   	  	// test purpose: display all the booking
   	  	for(Booking b: wanted.getBookings()) {
-  	  		System.out.println(b.toString());
+  	  		System.out.println(b.printBook());
   	  	}
-  	  	System.out.println("\n\n");
+  	  	System.out.println("\n\n");*/
 	}
 	
 	public void cancelBooking(String input) {
@@ -217,18 +225,19 @@ public class HotelBookingSystem {
 				break;
 			}
   	  	}
-  	  	if(found==0) {
+		if (found==0) {
   	  		// if no room was found just exit and dont print anything
   	  		return;
   	  	}
-  	  
+  	  	/*
   	  	System.out.println("DELETION:\n");
   	  	for(Hotel h : hotels) {
   	  		if(h.getBookings()==null) break;
   	  		for(Booking b: h.getBookings()) {
-  	  			System.out.println(b.toString());
+  	  			System.out.println(b.printBook());
   	  		}
   	  	}
+  	  	System.out.println("==========\n\n");*/
 	}
 	
 	public void changeBooking(String input) {
@@ -257,7 +266,8 @@ public class HotelBookingSystem {
 		        	  hotelSys.cancelBooking(input);
 		        	  
 		          } else if (allInput[0].equals("Change")) {
-		        	  
+		        	  hotelSys.cancelBooking(input);
+		        	  hotelSys.makeNewBooking(input);
 		          }
 		          
 	          }
