@@ -14,7 +14,7 @@ public class Hotel {
 		this.numRooms = rooms.size();
 		this.name = name;
 		//this.users = new ArrayList<String>();
-		this.rooms.addAll(rooms);
+		this.rooms=rooms;
 	}
 	
 	public String getHotelName() {
@@ -26,7 +26,9 @@ public class Hotel {
 	}
 	
 	public void addRoom(ArrayList<Room> newRooms){
-		this.rooms.addAll(newRooms);
+		for(Room r : newRooms) {
+			this.rooms.add(r);
+		}
 		this.numRooms = this.rooms.size();
 		
 	}

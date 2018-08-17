@@ -13,9 +13,7 @@ public class HotelBookingSystem {
 	public HotelBookingSystem() {
 		this.hotels = new ArrayList<Hotel>();
 	}
-	public void addHotel(Hotel x) {
-		this.hotels.add(x);
-	}
+	
 	public void makeNewHotel(String input) {
 		// Create new instance of hotel booking system
         // each hotel has 1 booking system
@@ -28,6 +26,9 @@ public class HotelBookingSystem {
       	  // create all the rooms and put it in a list
       	  for(int i =2; i <allInput.length;i+=2) {
       		  rooms.add(new Room(Integer.valueOf(allInput[i]), Integer.valueOf(allInput[i+1]), allInput[1]));
+      		  //System.out.println(allInput[i]);
+      		  //System.out.println(allInput[i+1]);
+      		  //System.out.println(allInput[1]);
       	  }
       	  
       	  int exist=0;
@@ -36,7 +37,7 @@ public class HotelBookingSystem {
       		  if(h.getHotelName().equals(allInput[1])) {
       			  h.addRoom(rooms);
       			  exist=1;
-      			  System.out.println("Hotel exist");
+      			  //System.out.println("Hotel exist");
       			  break;
       		  }
       	  }
@@ -49,12 +50,14 @@ public class HotelBookingSystem {
       	  
       	  //display the rooms in every hotel
           // testing purpose
-          for(Hotel e : hotels) {
+          /*
+      	  for(Hotel e : hotels) {
         	  ArrayList<Room> all = e.getRoom();
         	  for(Room l : all) {
         		  System.out.println(l.toString());
         	  }
-          }
+        	  System.out.println("");
+          }*/
         
       	  
 	}
@@ -169,12 +172,12 @@ public class HotelBookingSystem {
   	  	}
   	  	// Make the booking
   	  	wanted.makeBooking(toBeBooked, name, date, night);
-  	  	/*
+  	  	
   	  	// test purpose: display all the booking
   	  	for(Booking b: wanted.getBookings()) {
   	  		System.out.println(b.printBook());
   	  	}
-  	  	System.out.println("\n\n");*/
+  	  	System.out.println("\n\n");
 	}
 	
 	public void cancelBooking(String input) {
