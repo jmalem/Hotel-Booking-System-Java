@@ -1,0 +1,26 @@
+Hotel Surfers 101 2
+Hotel Surfers 102 2
+Hotel Surfers 103 1
+Hotel Burleigh 101 2
+Hotel Rock 101 1 102 2 103 3
+Booking Aarthi Jan 25 2 single 1 double 1
+Booking Rob Jan 24 4 double 1
+Booking Stephanie Jan 26 1 double 1
+Change Aarthi Jan 27 3 single 1
+Booking Gary Jan 25 2 single 1
+Cancel Stephanie
+Booking Hussein Jan 26 1 single 1
+Booking Herman Jan 30 1 single 1 double 1
+Booking Andreas Jan 27 4 single 1 double 1
+Booking Jacky Jan 27 3 single 1 double 1
+Print Surfers
+Print Burleigh
+Print Rock
+
+
+//this test case covers the case where the new bookking made is in between of 2 booking
+// the booking order is this way: Aarthi - new_booking - Herman
+// when new_booking is Andreas because the end period is after the start period for Herman booking
+// Andreas does not get allocated to Surfers Hotel, instead got allocated to Rock Hotel
+// when new_booking is Jacky the slot is allocated to him as his booking period doesnot
+// overlap with the adjacent booking period
