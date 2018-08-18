@@ -1,0 +1,26 @@
+Hotel Surfers 107 2 102 3 101 1 100 1
+Hotel BurLeigh 104 1
+Hotel BurLeigh 101 3 102 2 103 3
+Hotel Surfers 200 3 201 3
+Booking Gary Jan 25 2 single 1 double 1 triple 1
+Booking Jamal Feb 20 2 triple 1
+Booking Peter Jan 11 5 single 1
+Booking Kyle Feb 22 2 triple 1
+Booking Sean Feb 20 2 triple 1
+Cancel Jamal
+Cancel Jerry
+Cancel Gary
+Cancel Peter
+Print Surfers
+
+
+// Cancel Jerry covers booking cancel for  non existent booking
+
+// Print Surfers here shows that the booking for the hotel Surfers
+// still exist for room 102(triple) even though the latest booking has been deleted
+
+
+// Cancel booking Jamal covers the case when a person checks out in the morning 
+// and another person checks in in the evening 
+// it also shows that when we cancell a booking of a person in the hotel, 
+// other room that belongs to other people does not get cancelled
