@@ -17,16 +17,26 @@ public class Hotel {
 		this.bookings = new ArrayList<Booking>();
 		this.rooms=rooms;
 	}
-	
+	/**
+	 * Returns the hotel name
+	 * @return String
+	 */
 	public String getHotelName() {
 		return this.name;
 	}
-
+	/**
+	 * Add collection of rooms to hotel
+	 * @param newRooms
+	 */
 	public void addRoom(ArrayList<Room> newRooms){
 		for(Room r : newRooms) {
 			this.rooms.add(r);
 		}
 	}
+	/**
+	 * Get a list of all rooms in the hotel
+	 * @return ArrayList<Room>
+	 */
 	public ArrayList<Room> getRoom() {
 		return this.rooms;
 	}
@@ -68,7 +78,10 @@ public class Hotel {
 		}
 	}
 	
-	
+	/**
+	 * returns all the bookings in the hotel
+	 * @return ArrayList<Booking>
+	 */
 	public ArrayList<Booking> getBookings(){
 		return this.bookings;
 	}

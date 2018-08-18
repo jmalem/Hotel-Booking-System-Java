@@ -26,34 +26,66 @@ public class Booking {
 		this.hotel = hotelName;
 		this.lengthOfStay = lengthOfStay;
 	}
+	/**
+	 * Get the name of the booker
+	 * @return String
+	 */
 	public String getName() {
 		return this.name;
 	}
+	/**
+	 * Set the name in the booking
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	/**
+	 * Get collection of rooms for the current booking
+	 * @return ArrayList<Room>
+	 */
 	public ArrayList<Room> getRooms() {
 		return rooms;
 	}
+	/**
+	 * Set rooms for the booking
+	 * @param rooms
+	 */
 	public void setRooms(ArrayList<Room> rooms) {
 		this.rooms = rooms;
 	}
-	
+	/**
+	 * Return the booking start date
+	 * @return LocalDate
+	 */
 	public LocalDate getStart() {
 		return this.start;
 	}
-	
+	/**
+	 * Return booking end date
+	 * @return LocalDate
+	 */
 	public LocalDate getEnd() {
 		return this.end;
 	}
+	/**
+	 * Return the hotel name in which the booking belongs to
+	 * @return String
+	 */
 	public String getHotel() {
 		return this.hotel;
 	}
-	
+	/**
+	 * Set hotel name for a booking
+	 * @param name
+	 */
 	public void setHotel(String name) {
 		this.hotel=name;
 	}
-	
+	/**
+	 * Get the number of nights the booking is made for
+	 * @return Integer
+	 */
 	public int getNight() {
 		return this.lengthOfStay;
 	}
