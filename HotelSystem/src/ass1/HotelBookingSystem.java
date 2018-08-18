@@ -306,17 +306,15 @@ public class HotelBookingSystem {
 			System.out.println("Hotel not found");
 			return;
 		} else {
-			
+			// check bookings for every room in the hotel and match it with the room in the collection of bookings
+			// then print them accordingly
 			ArrayList<Booking> allBookings = h.getBookings();
 			ArrayList<Room> allRooms = h.getRoom();
 			for(Room r : allRooms) {
-				//System.out.println(r.getHotel()+" "+r.getRoomNumber());
 				if(r==null || r.getBooking()==null) {
 					System.out.println(r.getHotel()+" "+r.getRoomNumber());
 				} else {
 					System.out.print(r.getHotel()+" "+r.getRoomNumber());
-					//ArrayList<Booking> curr = h.getBookings();
-					//System.out.println(" "+allBookings.size());
 					for(Booking a : allBookings) {
 						ArrayList<Room> inBooking = a.getRooms();
 						for(Room q : inBooking) {
@@ -327,16 +325,9 @@ public class HotelBookingSystem {
 							}
 						}
 					}
-					System.out.println();
-					
-						
-					
+					System.out.println();				
 				}
 			}
-			/*for(Booking b : allBookings) {
-				//System.out.println(b.getName()+"vvvv");
-				System.out.println("PrintBOOK");
-			}*/
 		}
 	}
 	
@@ -358,13 +349,13 @@ public class HotelBookingSystem {
 		          } else if (allInput[0].equals("Booking")) { // Handles booking creation
 		        	  hotelSys.makeNewBooking(input, "Booking");
 		        	  
-		          } else if (allInput[0].equals("Cancel")) {
+		          } else if (allInput[0].equals("Cancel")) { // Handles Cancel booking
 		        	  hotelSys.cancelBooking(input, "Booking");
 		        	  
-		          } else if (allInput[0].equals("Change")) {
+		          } else if (allInput[0].equals("Change")) { // Handles booking change
 		        	  hotelSys.cancelBooking(input, "Change");
 		        	  hotelSys.makeNewBooking(input, "Change");
-		          } else if (allInput[0].equals("Print")) {
+		          } else if (allInput[0].equals("Print")) { // Handles Print
 		        	  hotelSys.roomStatus(allInput[1]);
 		          }
 	          }

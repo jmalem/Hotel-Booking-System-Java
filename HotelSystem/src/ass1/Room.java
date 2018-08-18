@@ -1,8 +1,5 @@
 package ass1;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class Room {
 	int roomNumber;
 	int capacity;

@@ -1,7 +1,6 @@
 package ass1;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Hotel {
@@ -41,7 +40,6 @@ public class Hotel {
 	 */
 	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
 		Booking b = new Booking(user, rooms, start, lengthOfStay, this.name);
-		//System.out.println(user+" bookmana "+this.bookings.size());
 		if(this.bookings.size()==0) {
 			this.bookings.add(b);
 		} else {
@@ -50,7 +48,6 @@ public class Hotel {
 				//System.out.println(i);
 				Booking curr = bookings.get(i);
 				LocalDate currStart = curr.getStart();
-				LocalDate currEnd = curr.getEnd();
 				if(i==0 && (b.getStart().isBefore(currStart))) {
 					this.bookings.add(0,b);
 					break;
