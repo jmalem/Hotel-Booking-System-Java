@@ -38,6 +38,7 @@ public class Hotel {
 
 	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
 		Booking b = new Booking(user, rooms, start, lengthOfStay, this.name);
+		//System.out.println(user+" bookmana "+this.bookings.size());
 		if(this.bookings.size()==0) {
 			this.bookings.add(b);
 		} else {
@@ -104,6 +105,18 @@ public class Hotel {
 			//System.out.println("HERE");
 			if(booked.contains(num)) {
 				r.setBooking(null);
+				
+				// replaces the booking  with the latest booking if there is
+				for (int i = bookings.size()-1; i>=0; i--) {
+					Booking c=bookings.get(i);
+					for(Room x:c.getRooms()) {
+						// if the prev booking room number = this room number		
+						if(x.getRoomNumber()==r.getRoomNumber()) {
+							r.setBooking(c);
+							
+						}
+					}
+				}
 			}
 		}
 		
