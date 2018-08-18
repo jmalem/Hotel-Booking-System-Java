@@ -5,12 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Booking {
-	String name;
-	ArrayList<Room> rooms;
-	LocalDate start;
-	LocalDate end;
-	String hotel;
-	int lengthOfStay;
+	private String name;
+	private ArrayList<Room> rooms;
+	private LocalDate start;
+	private LocalDate end;
+	private String hotel;
+	private int lengthOfStay;
 	/**
 	 * This constructor creates a booking for a certain user, contains the rooms wanted, and dates of booking
 	 * @param name The name of the booker
