@@ -6,14 +6,24 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * 
+ * @author jansen
+ * This class implements booking system that is able to make booking across hotels
+ * also able to change, cancel, and print booking
+ */
 public class HotelBookingSystem {
 	private ArrayList<Hotel> hotels;
 	
 	public HotelBookingSystem() {
 		this.hotels = new ArrayList<Hotel>();
 	}
-	
+	/**
+	 * Find a hotel in collection of hotels
+	 * if found return the hotel object else return null
+	 * @param hotelName
+	 * @return Hotel
+	 */
 	public Hotel hotelExist(String hotelName) {
 		
 		for(Hotel h:hotels) {
@@ -23,6 +33,12 @@ public class HotelBookingSystem {
 		}
 		return null;
 	}
+	/**
+	 * Parse input string and creates a new Hotel or add rooms to existing hotels
+	 * Utilizes hotelExist method to simplify hotel search
+	 * Adds the new hotel to this.bookings
+	 * @param input A line of string from the input.txt
+	 */
 	public void makeNewHotel(String input) {
 		// Create new instance of hotel booking system
         // each hotel has 1 booking system
@@ -34,10 +50,9 @@ public class HotelBookingSystem {
       	  ArrayList<Room> rooms  = new ArrayList<Room>();
       	  // create all the rooms and put it in a list
       	  for(int i =2; i <allInput.length;i+=2) {
-      		  rooms.add(new Room(Integer.valueOf(allInput[i]), Integer.valueOf(allInput[i+1]), allInput[1]));
-      		  //System.out.println(allInput[i]);
-      		  //System.out.println(allInput[i+1]);
-      		  //System.out.println(allInput[1]);
+      		  if(Integer.valueOf(allInput[i+1])<=3) {
+      			  rooms.add(new Room(Integer.valueOf(allInput[i]), Integer.valueOf(allInput[i+1]), allInput[1]));
+      		  }
       	  }
       	  Hotel h = hotelExist(allInput[1]);
       	  if(h==null) {
@@ -48,7 +63,16 @@ public class HotelBookingSystem {
     	  }
       	  
 	}
-	
+	/**
+	 * This method looks for a collection of single, double, and triple room in the hotel
+	 * that is available from start to end
+	 * @param ws wanted single room
+	 * @param wd wanted double room
+	 * @param wt wanted triple room
+	 * @param start booking start date
+	 * @param end booking end date
+	 * @return
+	 */
 	public ArrayList<Room> findARoom(int ws, int wd, int wt, LocalDate start, LocalDate end) {
 		ArrayList <Room> result = new ArrayList<Room>();
 		int s = 0;// single room in the hotel
@@ -159,7 +183,13 @@ public class HotelBookingSystem {
 		
 		return null;
 	}
-	
+	/**
+	 * Parses the input and create a booking
+	 * Can be used to change existing booking by specifying typeOfBooking as "Change"
+	 * Utilizes findARoom and hotelExist to make search easier
+	 * @param input contains the desired room type, the quantity, booking start date, and length of stay
+	 * @param typeOfBooking either "Booking" or "Change" the method prints the typeOfBooking to show whether this method is called to make a new booking or to change existing booking
+	 */
 	public void makeNewBooking(String input, String typeOfBooking) {
 		String[] allInput = input.split(" ");
 		String name = allInput[1];
@@ -189,13 +219,6 @@ public class HotelBookingSystem {
 	    	}
 	    	
 	    }
-	    /*
-	    System.out.println("make book for "+ name);
-	  	// testing--------
-  		System.out.println("s "+singleRoom);
-	  	System.out.println("d "+doubleRoom);
-	  	System.out.println("t "+tripleRoom);
-	     */
 	    
 	    
   	  	Hotel wanted = null;
@@ -206,12 +229,9 @@ public class HotelBookingSystem {
 			return;
   	  	}
   	  	String hotelName = toBeBooked.get(0).getHotel();
-	  	for(Hotel p : hotels) {
-	  		if(p.getHotelName().equals(hotelName)) {
-	  			wanted = p;
-	  			break;
-	  		}
-	  	}
+	  	// hotel definitely exist so dont have to check
+  	  	wanted = hotelExist(hotelName);
+	  	
   	  	
   		System.out.print(typeOfBooking+" ");
 	  	
@@ -219,7 +239,12 @@ public class HotelBookingSystem {
   	  	
   	  	
 	}
-	
+	/**
+	 * Cancel all the bookings for the user specified in input
+	 * when typeOfInput.equals("Change") this function outputs nothing
+	 * @param input Contains username
+	 * @param typeOfInput Either "Booking" or "Change", produces output for "Booking" but not for "Change"
+	 */
 	public void cancelBooking(String input, String typeOfInput) {
 		String[] allInput = input.split(" ");
 		String name = allInput[1];
@@ -250,12 +275,16 @@ public class HotelBookingSystem {
 			}
   	  	}
 		if (found==0) {
-			
   	  		// if no room was found just exit and dont print anything
   	  		return;
   	  	}
 	}
-	
+	/**
+	 * Changes an existing booking
+	 * Utilizes cancelBooking and makeNewBooking method
+	 * @param input
+	 */
+	 
 	public void changeBooking(String input) {
 		String[] allInput = input.split(" ");
 		String name = allInput[1];
@@ -264,7 +293,13 @@ public class HotelBookingSystem {
 		
 	}
 	
-	public void printBooking(String hotelName) {
+	/**
+	 * Print the status of room in the specified hotel
+	 * Starts by displaying the rooms without any booking in order
+	 * Then displays all the rooms with booking according to the booking date in ascending order
+	 * @param hotelName Hotel Name which room is going to be shown
+	 */
+	public void roomStatus(String hotelName) {
 		Hotel h = hotelExist(hotelName);
 		
 		if(h==null) {
@@ -276,12 +311,13 @@ public class HotelBookingSystem {
 			ArrayList<Room> allRooms = h.getRoom();
 			for(Room r : allRooms) {
 				//System.out.println(r.getHotel()+" "+r.getRoomNumber());
-				if(r.getBooking()==null) {
+				if(r==null || r.getBooking()==null) {
 					System.out.println(r.getHotel()+" "+r.getRoomNumber());
 				} else {
 					System.out.print(r.getHotel()+" "+r.getRoomNumber());
-					ArrayList<Booking> curr = h.getBookings();
-					for(Booking a : curr) {
+					//ArrayList<Booking> curr = h.getBookings();
+					//System.out.println(" "+allBookings.size());
+					for(Booking a : allBookings) {
 						ArrayList<Room> inBooking = a.getRooms();
 						for(Room q : inBooking) {
 							if(q.getRoomNumber()==r.getRoomNumber()) {
@@ -329,7 +365,7 @@ public class HotelBookingSystem {
 		        	  hotelSys.cancelBooking(input, "Change");
 		        	  hotelSys.makeNewBooking(input, "Change");
 		          } else if (allInput[0].equals("Print")) {
-		        	  hotelSys.printBooking(allInput[1]);
+		        	  hotelSys.roomStatus(allInput[1]);
 		          }
 	          }
 	      }

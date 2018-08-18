@@ -1,0 +1,22 @@
+Hotel Bondi 20 1 21 1 22 2 23 3
+Hotel Coogee 40 1 41 1 42 2 43 3
+Hotel Randwick 50 5
+Print Bondi
+Print Coogee
+Print Randwick
+Booking Aldo Aug 17 1 single 4
+Booking Elton Aug 17 1 single 2 double 1 triple 1
+Booking Nico Aug 17 1 single 2 double 1 triple 1
+Booking Nelson Aug 17 1 single 2
+Booking Bill Aug 16 9 single 1
+Print Bondi
+Print Coogee
+Change Nico Aug 19 1 single 2 double 1 triple 1
+Booking Nelson Aug 17 1 single 2 double 1 triple 1
+Print Bondi
+Print Coogee
+// Case where hotel randwick has room with capacity 4 therefore, the creation is cancelled
+// Aldo's booking must be rejected because no hotels have 4 single rooms
+// Nelson's booking rejected because hotel is full for the period
+// Bill's booking rejected because the hotels are booked from 17-18 Aug while he wants to stay from 16-27 Aug
+// Change Nico's booking to 18 Aug and test by letting Nelson book for 17 Aug

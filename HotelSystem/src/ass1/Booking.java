@@ -11,6 +11,14 @@ public class Booking {
 	LocalDate end;
 	String hotel;
 	int lengthOfStay;
+	/**
+	 * This constructor creates a booking for a certain user, contains the rooms wanted, and dates of booking
+	 * @param name The name of the booker
+	 * @param roomsWanted The rooms that are going to be booked
+	 * @param start The booking start date
+	 * @param lengthOfStay The length of stay
+	 * @param hotelName The name of hotel
+	 */
 	public Booking (String name, ArrayList<Room> roomsWanted, LocalDate start,int lengthOfStay, String hotelName) {
 		this.name = name;
 		this.rooms = new ArrayList<Room>(roomsWanted);
@@ -50,6 +58,10 @@ public class Booking {
 	public int getNight() {
 		return this.lengthOfStay;
 	}
+	/**
+	 * 
+	 * @return This method return a string which contains a booking detail
+	 */
 	public StringBuilder showBook() {
 		StringBuilder booked = new StringBuilder();
 		booked.append(name);

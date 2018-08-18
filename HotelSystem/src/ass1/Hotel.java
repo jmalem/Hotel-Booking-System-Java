@@ -5,13 +5,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Hotel {
-	private String name;	
-	private int numRooms;
+	private String name;
 	private ArrayList<Room> rooms;
 	private ArrayList<Booking> bookings;
-	
+	/**
+	 * Creates a hotel with name name and containing the room collection rooms
+	 * @param name
+	 * @param rooms
+	 */
 	public Hotel(String name, ArrayList<Room> rooms) {
-		this.numRooms = rooms.size();
 		this.name = name;
 		this.bookings = new ArrayList<Booking>();
 		this.rooms=rooms;
@@ -21,21 +23,22 @@ public class Hotel {
 		return this.name;
 	}
 
-	public int numRooms() {
-		return this.numRooms;
-	}
-	
 	public void addRoom(ArrayList<Room> newRooms){
 		for(Room r : newRooms) {
 			this.rooms.add(r);
 		}
-		this.numRooms = this.rooms.size();
-		
 	}
 	public ArrayList<Room> getRoom() {
 		return this.rooms;
 	}
-
+	/**
+	 * This method creates a booking and inserts it in ascending order in this.bookings
+	 * also set the booked rooms' booking to the latest booking
+	 * @param rooms Rooms to be booked
+	 * @param user Customer name
+	 * @param start Booking start date
+	 * @param lengthOfStay Length of Stay
+	 */
 	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
 		Booking b = new Booking(user, rooms, start, lengthOfStay, this.name);
 		//System.out.println(user+" bookmana "+this.bookings.size());
@@ -68,20 +71,20 @@ public class Hotel {
 			n.setBooking(b);
 		}
 	}
-	/*
-	public void changeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
-		Booking b = new Booking(user, rooms, start, lengthOfStay);
-		this.bookings.add(b);
-		
-		for(Room n :rooms) {
-			n.setBooking(b);
-		}
-	}*/
+	
 	
 	public ArrayList<Booking> getBookings(){
 		return this.bookings;
 	}
 	
+	/**
+	 * Cancels booking for a customer
+	 * Removes all instances of booking with customer name
+	 * and removes all booking in rooms that is associated with this customer
+	 * replaces all those bookings with the latest previous bookings for that room number
+	 * @param name Customer
+	 * @param typeOfBooking No output when typeOfBooking is "Change"
+	 */
 	public void cancelBooking(String name, String typeOfBooking) {
 		
 		ArrayList<Integer> indexes = new ArrayList<Integer> ();
@@ -125,11 +128,6 @@ public class Hotel {
 		}
 		if(typeOfBooking.equals("Booking")) {
 			System.out.println("Cancel "+name);	
-		}
-	}
-	public void displayRoom() {
-		for(Room r : this.rooms) {
-			System.out.println(r.toString());
 		}
 	}
 	
