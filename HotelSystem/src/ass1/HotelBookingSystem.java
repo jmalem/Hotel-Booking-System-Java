@@ -82,12 +82,6 @@ public class HotelBookingSystem {
 		Hotel foundHotel = null;
 		for(Hotel h : hotels) {
 			ArrayList<Room> hotelRooms = h.getRoom();
-			/*if(hotelRooms.isEmpty()) {
-				System.out.println("Hotel "+h.getHotelName()+" is empty");
-				
-			} else {
-				System.out.println("Hotel "+h.getHotelName()+" is NOT empty");
-			}*/
 			Booking b = null;
 			s=0;
 			d=0;
@@ -225,7 +219,7 @@ public class HotelBookingSystem {
   	  	
   	  	toBeBooked = findARoom(singleRoom, doubleRoom, tripleRoom, date, date.plusDays(night));
   	  	if( toBeBooked==null || toBeBooked.isEmpty()) {
-  	  		System.out.println("Booking Rejected");
+  	  		System.out.println("Booking rejected");
 			return;
   	  	}
   	  	String hotelName = toBeBooked.get(0).getHotel();
@@ -255,11 +249,7 @@ public class HotelBookingSystem {
 			
 			found = 0;
 			int hotelIndex = -1;
-			/*if(hotelBookings.isEmpty()) {
-				System.out.println("empty");
-			}*/
 			for(Booking b : hotelBookings) {
-				//System.out.println(b.getName()+"kkkkk");
 				if(b.getName().equals(name)) {
 					found=1;
 					hotelIndex=hotels.indexOf(h);

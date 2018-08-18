@@ -45,7 +45,6 @@ public class Hotel {
 		} else {
 			
 			for(int i=0; i<this.bookings.size();i++) {
-				//System.out.println(i);
 				Booking curr = bookings.get(i);
 				LocalDate currStart = curr.getStart();
 				if(i==0 && (b.getStart().isBefore(currStart))) {
