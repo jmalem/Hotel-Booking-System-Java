@@ -1,0 +1,11 @@
+package ass1;
+
+import java.util.ArrayList;
+
+public class BookingSystem {
+	ArrayList<Booking> bookings;
+	public BookingSystem() {
+		this.bookings = new ArrayList<Booking>();
+	}
+	
+}

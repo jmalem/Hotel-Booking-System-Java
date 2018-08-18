@@ -1,0 +1,14 @@
+package ass1;
+
+import java.util.ArrayList;
+
+public class RoomSystem {
+	ArrayList<Room> rooms;
+	ArrayList<Room> availableRooms;
+	ArrayList<Room> bookedRooms;
+	public RoomSystem () {
+		this.rooms = new ArrayList<Room>();
+		this.availableRooms = new ArrayList<Room>();
+		this.bookedRooms = new ArrayList<Room>();
+	}
+}

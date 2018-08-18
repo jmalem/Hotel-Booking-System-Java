@@ -1,0 +1,32 @@
+package ass1;
+
+import java.util.ArrayList;
+
+public class Hotel {
+	private int capacity;
+	RoomSystem roomSys;
+	//BookingSystem bookSys;
+	private ArrayList<String> users;
+	
+	public Hotel(int capacity) {
+		this.capacity = capacity;
+		this.users = new ArrayList<String>();
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public ArrayList<String> getUsers() {
+		return users;
+	}
+
+	public void addUsers(String user) {
+		this.users.add(user);
+	}
+	
+}

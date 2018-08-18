@@ -1,0 +1,10 @@
+package ass1;
+
+import java.util.ArrayList;
+
+public class RoomSystem {
+	ArrayList<Room> rooms;
+	public RoomSystem () {
+		this.rooms = new ArrayList<Room>();
+	}
+}

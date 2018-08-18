@@ -1,0 +1,64 @@
+package ass1;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class Room {
+	int roomNumber;
+	int capacity;
+	String hotel;
+	ArrayList <Booking> booking;
+	public Room(int roomNumber, int capacity, String hotel) {
+		this.roomNumber = roomNumber;
+		this.capacity = capacity;
+		this.hotel = hotel;
+		this.booking = new ArrayList<Booking>();
+	}
+	
+	public void setBooking(Booking b) {
+		booking.add(b);
+	}
+	
+	public ArrayList<Booking> getBooking() {
+		return this.booking;
+	}
+	
+	public String getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(String hotel) {
+		this.hotel = hotel;
+	}
+
+	public int getRoomNumber() {
+		return roomNumber;
+	}
+
+	public void setRoomNumber(int roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	@Override
+	public String toString() {
+		
+		String str = new String();
+		if(this.capacity==1) {
+			str = "single";
+		} else if (this.capacity ==2) {
+			str = "double";
+		} else if (this.capacity ==3) {
+			str = "triple";
+		}
+		return "Hotel : "+this.hotel+" Room Number: "+this.roomNumber+" "+str;
+	}
+	
+}

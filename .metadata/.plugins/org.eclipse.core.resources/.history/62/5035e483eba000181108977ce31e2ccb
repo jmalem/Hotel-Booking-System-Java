@@ -1,0 +1,183 @@
+package ass1;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+public class Hotel {
+	private String name;	
+	private int numRooms;
+	private RoomSystem roomSys;
+	private BookingSystem bookSys;
+	private ArrayList<String> users;
+	
+	public Hotel(String name, ArrayList<Room> rooms) {
+		this.numRooms = rooms.size();
+		this.name = name;
+		this.roomSys = new RoomSystem();
+		this.bookSys = new BookingSystem();
+		this.users = new ArrayList<String>();
+		this.roomSys.addRooms(rooms);
+	}
+	public String getHotelName() {
+		return this.name;
+	}
+
+	public int numRooms() {
+		return this.numRooms;
+	}
+	
+	public ArrayList<String> getUsers() {
+		return users;
+	}
+
+	public void addUsers(String user) {
+		this.users.add(user);
+	}
+	public void addRoom(ArrayList<Room> newRooms){
+		this.roomSys.addRooms(newRooms);
+		this.numRooms = this.roomSys.getNumRooms();
+		
+	}
+	public ArrayList<Room> getRoom() {
+		return this.roomSys.getRooms();
+	}
+	public ArrayList<Room> getAvailableRoom() {
+		return this.roomSys.getAvailableRooms();
+	}
+
+	public void makeBooking(String input) {
+		String[] allInput = input.split(" ");
+		String name = allInput[1];
+  	  	//System.out.println(name);
+  	  	String booking_date = "2018-"+allInput[2]+"-"+allInput[3];
+  	  	DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+  	  	LocalDate date = LocalDate.parse(booking_date, format);
+  	  int night = Integer.valueOf(allInput[4]);
+  	  ArrayList<Room> toBeBooked = new ArrayList<Room>();
+  	  
+  	  // starting from allInput[5] and so on is the room type and the amount of room booked
+  	  int singleRoom = 0;
+  	  int doubleRoom = 0;
+  	  int tripleRoom = 0;
+  	  // count the number of single double and triple room wanted
+  	  for(int i=5;i<allInput.length; i+=2) {
+  		  
+  		  if(allInput[i].equals("single")) {
+  			  
+  			  singleRoom+=Integer.parseInt(allInput[i+1]);
+  		  } else if(allInput[i].equals("double")) {
+  			  
+  			  doubleRoom+=Integer.parseInt(allInput[i+1]);
+  		  } else if(allInput[i].equals("triple")) {
+  			  
+  			  tripleRoom+=Integer.parseInt(allInput[i+1]);
+  		  }
+  		  
+  	  }
+  	  /*
+  	  // testing--------
+  	  System.out.println("s "+singleRoom);
+		  System.out.println("d "+doubleRoom);
+		  System.out.println("t "+tripleRoom);
+  	  */
+  	  Hotel wanted = null;
+  	  ArrayList<Room> roomCollection = new ArrayList<Room>();
+  	  int found = 0;
+  	  for(Hotel h : hotels) {
+  		  found=0;
+  		  roomCollection = h.getRoom();
+  		  //h.displayRoom();
+  		  //ArrayList<Room> order = new ArrayList<Room>();
+  		  int s = 0;// single room in hotel h
+  		  int d = 0;// double room in hotel h
+  		  int t = 0;// triple room in hotel h
+  		  
+  		  
+  		  
+  		  for (Room r : roomCollection) {
+  			  //System.out.println(r.toString());
+  			  if(r.getCapacity()==1) {
+  				  s++;
+  			  } else if (r.getCapacity()==2) {
+  				  d++;
+  			  } else if (r.getCapacity()==3) {
+  				  t++;
+  			  }
+  			  
+  			  if(singleRoom<=s && doubleRoom<=d && tripleRoom<=t) {
+  				  found=1;
+  				  //System.out.println("Rooms found in hotel "+h.getHotelName()+" for "+name);
+  				  wanted = h;
+  				  break;
+  			  }
+  			  
+  		  }
+  		  // to stop the loop from searching in other hotel again
+  		  if(found==1) {
+  			  break;
+  		  }
+  	  }
+  	  
+  	  //System.out.println(s+" " +" "+ d+" " +t);
+  	  if(wanted==null) {
+  		  System.out.println("hotel is null");
+  		  return;
+  	  }
+  	  else {
+  		  	// only get the available rooms so we dont have to do another
+  		  // check on hte booking system
+  		  	ArrayList<Room> hotelRooms = wanted.getAvailableRoom();
+  		  
+  		  	int ws = singleRoom;
+  		  	int wd = doubleRoom;
+  		  	int wt = tripleRoom;
+  		  	// we are sure that the hotel contains the room
+  		  	for(Room r : hotelRooms) {
+  		  		//System.out.println(r.toString());
+  			  	if(r.getCapacity()==1 && ws!=0) {
+  				  	//System.out.println("S add "+r.getRoomNumber());
+  				  	toBeBooked.add(r);
+  				  	ws--;
+  			  	} else if (r.getCapacity()==2 && wd!=0) {
+  				  	//System.out.println("D add "+r.getRoomNumber());
+  				  	toBeBooked.add(r);
+  				  	wd--;
+  			  	} else if (r.getCapacity()==3 && wt!=0) {
+  				  	//System.out.println("T add "+r.getRoomNumber());
+  				  	toBeBooked.add(r);
+  				  	wt--;
+  			  	}
+  			  	if(ws==0 && wd==0 && wt==0) {
+  				  	break;
+  			  	}
+  			  
+  		  	}
+  		  
+  	  }
+  	  // Make the booking
+  	  wanted.makeBooking(toBeBooked, name, date, night);
+  	  // test purpose: display all the booking
+  	  for(Booking b: wanted.getBookings()) {
+  		  System.out.println(b.toString());
+  	  }
+    
+	}
+	/*
+	public void makeBooking(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
+		this.bookSys.bookRoom(rooms, user, start, lengthOfStay);
+		for(Room n :rooms) {
+			this.roomSys.bookRoom(n);
+		}
+	}*/
+	public ArrayList<Booking> getBookings(){
+		return this.bookSys.getBookings();
+	}
+	
+	public void displayRoom() {
+		for(Room r : this.roomSys.getRooms()) {
+			System.out.println(r.toString());
+		}
+	}
+}
+ 

@@ -1,0 +1,32 @@
+package ass1;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class BookingSystem {
+	private ArrayList<Booking> bookings;
+	public BookingSystem() {
+		this.bookings = new ArrayList<Booking>();
+	}
+	
+	public Booking bookRoom(ArrayList<Room> rooms, String user, LocalDate start, int lengthOfStay) {
+		
+		for(Booking b:this.bookings) {
+			ArrayList<Room> bookedRooms = b.getRooms();
+			for(Room x : bookedRooms) {
+				// if the wanted room
+				if(bookedRooms.contains(x)) {
+					return null;
+				}
+			}
+		}
+		// if no previous booking then make a new one
+		Booking b = new Booking(user, rooms, start, lengthOfStay);
+		this.bookings.add(b);
+		return b;
+		
+	}
+	public ArrayList<Booking> getBookings() {
+		return this.bookings;
+	}
+}

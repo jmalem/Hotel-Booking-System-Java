@@ -1,0 +1,62 @@
+package ass1;
+
+import java.time.*;
+import java.util.ArrayList;
+
+public class Booking {
+	String name;
+	ArrayList<Room> rooms;
+	LocalDate start;
+	LocalDate end;
+	String hotel;
+	public Booking (String name, ArrayList<Room> roomsWanted, LocalDate start,int lengthOfStay, String hotelName) {
+		this.name = name;
+		this.rooms = new ArrayList<Room>(roomsWanted);
+		this.start = start;
+		this.end = start.plusDays(lengthOfStay);
+		this.hotel = hotelName;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public ArrayList<Room> getRooms() {
+		return rooms;
+	}
+	public void setRooms(ArrayList<Room> rooms) {
+		this.rooms = rooms;
+	}
+	
+	public LocalDate getStart() {
+		return this.start;
+	}
+	
+	public LocalDate getEnd() {
+		return this.end;
+	}
+	public void setHotel(String name) {
+		this.hotel=name;
+	}
+	public StringBuilder showBook() {
+		StringBuilder booked = new StringBuilder();
+		booked.append(name);
+		booked.append(" ");
+		booked.append(this.hotel);
+		for(Room r : rooms) {
+			booked.append(" ");
+			booked.append(r.getRoomNumber());
+		}
+		return booked;
+	}
+	public StringBuilder printBook() {
+		StringBuilder booked = new StringBuilder();
+		booked.append(this.hotel);
+		for(Room r : rooms) {
+			booked.append(" ");
+			booked.append(r.getRoomNumber());
+		}
+		return booked;
+	}
+}

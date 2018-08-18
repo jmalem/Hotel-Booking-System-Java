@@ -132,11 +132,6 @@ public class Hotel {
 			System.out.println(r.toString());
 		}
 	}
-	public StringBuilder printBook(Hotel h, ArrayList<Booking> bookings) {
-		
-		
-		//System.out.println("HERE "+details);
-		return null;
-	}
+	
 }
  
